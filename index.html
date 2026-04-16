@@ -1,74 +1,72 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Crixp</title>
+<title>Crixp</title>
 
-  <style>
-    body {
-      margin: 0;
-      background: black;
-      color: cyan;
-      font-family: Arial;
-      overflow: hidden;
-    }
+<style>
+body {
+  margin: 0;
+  background: black;
+  color: cyan;
+  font-family: Arial;
+  overflow: hidden;
+}
 
-    canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
 
-    .center {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-    }
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
 
-    input {
-      padding: 12px;
-      border-radius: 10px;
-      border: none;
-      background: #111;
-      color: white;
-      width: 250px;
-      text-align: center;
-    }
+input {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #111;
+  color: white;
+  width: 250px;
+  text-align: center;
+}
 
-    button {
-      padding: 12px 20px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 10px;
-      background: cyan;
-      color: black;
-      cursor: pointer;
-      font-weight: bold;
-    }
+button {
+  padding: 12px 20px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: none;
+  background: cyan;
+  cursor: pointer;
+  font-weight: bold;
+}
 
-    button:hover {
-      background: white;
-    }
+button:hover {
+  background: white;
+}
 
-    #output {
-      margin-top: 15px;
-      color: white;
-    }
+#output {
+  margin-top: 10px;
+  color: white;
+}
 
-    /* Sidebar */
-    .menu {
-      position: absolute;
-      left: 20px;
-      top: 100px;
-      color: cyan;
-    }
+/* Sidebar */
+.menu {
+  position: absolute;
+  left: 20px;
+  top: 100px;
+}
 
-    .menu p {
-      margin: 20px 0;
-      cursor: pointer;
-    }
-  </style>
+.menu p {
+  margin: 20px 0;
+  cursor: pointer;
+}
+</style>
 </head>
 
 <body>
@@ -87,7 +85,6 @@
   <button onclick="sendMessage()">Send</button>
 
   <p id="output"></p>
-
   <p>⚡ Powered by Crixp ⚡</p>
 </div>
 
@@ -124,7 +121,7 @@ function draw() {
 
 draw();
 
-/* ===== BUTTON ===== */
+/* ===== SEND FUNCTION ===== */
 function sendMessage() {
   let text = document.getElementById("inputBox").value;
 
@@ -133,7 +130,17 @@ function sendMessage() {
     return;
   }
 
-  document.getElementById("output").innerText = "Sent: " + text;
+  fetch("https://discord.com/api/webhooks/1491098041665716477/aOr4J80cqNBVk_PYu7_pKIvSsdkeyMWuQVy2AWp5hYLDFLSJd-6gZ9giQZjxVxAc_lVT", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      content: text
+    })
+  });
+
+  document.getElementById("output").innerText = "Sent!";
   document.getElementById("inputBox").value = "";
 }
 </script>
