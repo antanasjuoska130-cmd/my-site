@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<body style="background:black; color:cyan; text-align:center; margin-top:100px;">
+
+<h2>My Site</h2>
+
+<input id="inputBox" placeholder="Type something">
+<button onclick="sendMessage()">Send</button>
+
+<p id="output"></p>
+
+<script>
+function sendMessage() {
+  let text = document.getElementById("inputBox").value;
+
+  fetch("PASTE_URL_HERE", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ message: text })
+  });
+
+  document.getElementById("output").innerText = "Sent!";
+}
+</script>
+
+</body>
+</html>
