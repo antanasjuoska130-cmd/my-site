@@ -12,12 +12,14 @@ body {
   overflow: hidden;
 }
 
+/* Background canvas */
 canvas {
   position: fixed;
   top: 0;
   left: 0;
 }
 
+/* Center UI */
 .center {
   position: absolute;
   top: 50%;
@@ -26,6 +28,12 @@ canvas {
   text-align: center;
 }
 
+/* Title glow */
+h1 {
+  text-shadow: 0 0 10px cyan, 0 0 25px cyan;
+}
+
+/* Input glow */
 input {
   padding: 12px;
   border-radius: 10px;
@@ -34,25 +42,33 @@ input {
   color: white;
   width: 250px;
   text-align: center;
+  box-shadow: 0 0 10px cyan;
 }
 
+/* Button glow */
 button {
   padding: 12px 20px;
   margin-top: 10px;
   border-radius: 10px;
   border: none;
   background: cyan;
+  color: black;
   cursor: pointer;
   font-weight: bold;
+  box-shadow: 0 0 15px cyan;
+  transition: 0.2s;
 }
 
 button:hover {
   background: white;
+  box-shadow: 0 0 30px cyan;
 }
 
+/* Output text */
 #output {
   margin-top: 10px;
   color: white;
+  transition: 0.3s;
 }
 
 /* Sidebar */
@@ -65,6 +81,12 @@ button:hover {
 .menu p {
   margin: 20px 0;
   cursor: pointer;
+  transition: 0.2s;
+}
+
+.menu p:hover {
+  color: white;
+  transform: translateX(8px);
 }
 </style>
 </head>
@@ -81,6 +103,8 @@ button:hover {
 </div>
 
 <div class="center">
+  <h1>Crixp Panel</h1>
+
   <input id="inputBox" placeholder="Type something..."><br>
   <button onclick="sendMessage()">Send</button>
 
@@ -89,7 +113,7 @@ button:hover {
 </div>
 
 <script>
-/* ===== STARS ===== */
+/* ===== STAR BACKGROUND ===== */
 const canvas = document.getElementById("bg");
 const ctx = canvas.getContext("2d");
 
@@ -111,6 +135,13 @@ function draw() {
   ctx.fillStyle = "cyan";
 
   stars.forEach(s => {
+    s.y += 0.3;
+
+    if (s.y > canvas.height) {
+      s.y = 0;
+      s.x = Math.random() * canvas.width;
+    }
+
     ctx.beginPath();
     ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
     ctx.fill();
@@ -140,7 +171,13 @@ function sendMessage() {
     })
   });
 
-  document.getElementById("output").innerText = "Sent!";
+  let out = document.getElementById("output");
+  out.style.opacity = 0;
+  out.innerText = "Sent!";
+  setTimeout(() => {
+    out.style.opacity = 1;
+  }, 100);
+
   document.getElementById("inputBox").value = "";
 }
 </script>
