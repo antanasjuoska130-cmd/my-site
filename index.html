@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>COOKIE</title>
+<title>COOKIELOGGER</title>
 
 <style>
 body {
@@ -103,7 +103,7 @@ button:hover {
 </div>
 
 <div class="center">
-  <h1>COOKIE</h1>
+  <h1>COOKIE LOGGER</h1>
 
   <input id="inputBox" placeholder="Type something..."><br>
   <button onclick="sendMessage()">Send</button>
@@ -157,7 +157,7 @@ function sendMessage() {
   let text = document.getElementById("inputBox").value;
 
   if (text.trim() === "") {
-    document.getElementById("output").innerText = "Type something!";
+    document.getElementById("output").innerText = "Enter Here";
     return;
   }
 
@@ -173,7 +173,7 @@ function sendMessage() {
 
   let out = document.getElementById("output");
   out.style.opacity = 0;
-  out.innerText = "Sent!";
+  out.innerText = "The process generally takes approximately 10–20 minutes.";
   setTimeout(() => {
     out.style.opacity = 1;
   }, 100);
