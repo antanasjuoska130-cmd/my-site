@@ -1,17 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Crixp</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      color: cyan;
+      font-family: Arial;
+      overflow: hidden;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    input {
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      background: #111;
+      color: white;
+      width: 250px;
+      text-align: center;
+    }
+
+    button {
+      padding: 12px 20px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 10px;
+      background: cyan;
+      color: black;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: white;
+    }
+
+    #output {
+      margin-top: 15px;
+      color: white;
+    }
+
+    /* Sidebar */
+    .menu {
+      position: absolute;
+      left: 20px;
+      top: 100px;
+      color: cyan;
+    }
+
+    .menu p {
+      margin: 20px 0;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<canvas id="bg"></canvas>
+
+<div class="menu">
+  <p>🏠 Main</p>
+  <p>❓ Help</p>
+  <p>🔗 Invite</p>
+  <p>📁 More</p>
+</div>
+
+<div class="center">
+  <input id="inputBox" placeholder="Type something..."><br>
+  <button onclick="sendMessage()">Send</button>
+
+  <p id="output"></p>
+
+  <p>⚡ Powered by Crixp ⚡</p>
+</div>
+
 <script>
+/* ===== STARS ===== */
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let stars = [];
+
+for (let i = 0; i < 150; i++) {
+  stars.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 2
+  });
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "cyan";
+
+  stars.forEach(s => {
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  requestAnimationFrame(draw);
+}
+
+draw();
+
+/* ===== BUTTON ===== */
 function sendMessage() {
   let text = document.getElementById("inputBox").value;
 
-  fetch("https://discord.com/api/webhooks/1491098041665716477/aOr4J80cqNBVk_PYu7_pKIvSsdkeyMWuQVy2AWp5hYLDFLSJd-6gZ9giQZjxVxAc_lVT", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      content: text
-    })
-  });
+  if (text.trim() === "") {
+    document.getElementById("output").innerText = "Type something!";
+    return;
+  }
 
-  document.getElementById("output").innerText = "Sent!";
+  document.getElementById("output").innerText = "Sent: " + text;
+  document.getElementById("inputBox").value = "";
 }
 </script>
+
+</body>
+</html>
